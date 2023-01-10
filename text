@@ -1,0 +1,28 @@
+TABM
+This is the project that encodes the data entered by the user in different basic format and makes it complex in manual decoding by not following some basic principles in that encoding method and tries to confuse the persons and provides incorrect data even they knew the format of encoding (or) conversion methods used in this program.
+
+I want to clear that is program is the craziest idea I got and want to include this crazy application with other ongoing projects like Messanger (chatbox).
+Working:-
+		Working of the program with example
+Type	Value in variables	Count	Description
+Character	k	1	This input is taken from the user.
+Ascii	107	3	Input is copied to another variable in integer format.
+Binary	1101011	7	Ascii converted into binary
+Gray code	1011110	7	Binary is converted into gray code
+1s Complement	0100001	7	Gray code converted into 1s complement value
+			
+			
+			
+			
+			
+			
+			
+			
+			
+Morse code
+(This is the important part in program)	----- .---- ----- ----- ----- ----- .----
+(Copied into a string without spaces. I have typed spaces just for a clear view)	35	The 1s complement is now converted into morse code and stored in a pointer string without spaces.
+Alphabet	moatmotmotmotmgot	17	By manual decoding
+ 
+
+							
