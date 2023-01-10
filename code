@@ -1,0 +1,172 @@
+/*  Program to convert Text to binary, graycode, 1s complement, morse code and finally to text   */
+
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<math.h>
+#define Max_size 10000
+
+int asciiToBinary(int ascii5);       //This is the function to convert Ascii value to Binary number 
+int bintogray(int);                //This is the function to convert Binary value to Graycode
+void graytoonescomplement(int *); //This is the function that converts gary value into ones complement
+void morsecode(); //to display morsecode
+
+
+
+char  str[Max_size], *morse[Max_size] ;
+int binary[Max_size], onesComp[Max_size],bn=0;
+
+
+void main()
+{
+    int i=0, j=0, k=0, ch, bin, gray, m=0, n;
+    
+
+
+    printf("Enter a message: ");            
+    gets(str);                              //Reads input from user as paragraph
+
+    for(i=0;str[i]!='\0';i++)                //Loop executes until the data entered by user is null 
+    {
+        
+        ch=str[i];                  //Assigning character ASCII to 'ch' variable 
+        bin=asciiToBinary(ch);      //The decimal value in the 'ch' variable is converted in to binary number using asciiToBinary function and that binary value by taking 'ch' as input and assigines to 'bin' variable  
+        gray = bintogray(bin);      //The binary value in the 'bin'  variable is converted in to graycode using bintogray function by taking 'bin' as input and assigines to 'gray' variable 
+    
+        for(n=1;gray>0;n++)         // Loop to move 'gray' variable values into binary[Max_size] array 
+        {
+            binary[bn-n]=gray%10;
+            gray/=10;
+        }
+       
+
+
+        printf("%c = %d",str[i],str[i]);    //Displays single character and it's Ascii value
+        printf("= %d=",bin);               //Displays the binary value of Ascii value 
+
+         for ( n = 0; n < bn; n++)         //Displays graycode value of binary number
+        {
+            printf("%d",binary[n]);
+        }
+        printf("=");   
+    
+        graytoonescomplement((int *)binary); 
+
+
+
+        for(j=0;j<bn;j++)                       //This loop converts 1s complement in to morsecode  and stores it in a variable morse[Max_size] 
+        {
+                if(onesComp[j] == 0 )
+                {
+                    for(k=0;k<5;k++)
+                    {
+                        morse[m]="-";
+                        m++;
+                    }  
+                }
+                else if(onesComp[j] == 1 )
+                {
+                    for(k=0;k<5;k++)
+                    {
+                        if(k==0)
+                        {
+                            morse[m]=".";
+                            m++;
+                        }
+                        else
+                        {
+                            morse[m]="-";
+                            m++;
+                        }
+                    }
+                }
+                else
+                {
+                    printf("\nInvaild character can't process morse code\n");
+                }
+        }
+
+        if(bn>0)     //This condition helps all over the program to have perfect execution of 1s complement and morse code 
+            bn=0;
+        
+        printf("\n");
+        
+    }
+
+    printf("\n");
+     morsecode();
+    getch();
+}
+
+
+
+int asciiToBinary(int ascii)                //Function to convert ascii to binary and returns value 
+{
+	int res = 0, i = 1, rem;     
+	while (ascii > 0)
+	{
+		rem = ascii % 2;
+		res = res + (i * rem);
+		ascii = ascii / 2;
+		i = i * 10;
+        bn++;
+	}
+	return(res);
+}
+
+int bintogray(int bin)                     //Function to convert binary to graycode and returns value 
+{
+    int a, b, result = 0, i = 0;
+    while (bin != 0)
+    {
+        a = bin % 10;
+        bin = bin / 10;
+        b = bin % 10;
+        if ((a && !b) || (!a && b))
+        {
+            result = result + pow(10, i);
+        }
+        i++;
+    }
+    return result;
+}
+
+void graytoonescomplement(int binary[])       //Function to convert graycode to 1s COmplement and displays value
+{
+    int j,n;
+    for(j=0; j<bn; j++)    
+        {
+            if(binary[j] == 1)
+            {
+                onesComp[j] = 0;
+            }
+            else if(binary[j] == 0)
+            {
+                onesComp[j] = 1;
+            }
+            else
+            {
+                printf("\nInvaild character\n");
+                
+            }
+        } 
+
+        for ( n = 0; n < bn; n++)
+        {
+            printf("%d",onesComp[n]);        //Displays 1s complement value of graycode 
+        } 
+}
+
+void morsecode()
+{
+    int j,o=5;
+    for(j=0;*morse[j]!='\0';j++)        //Displays the morse code in the variable 
+    {
+            if(j == o)
+            {
+                printf(" ");
+                o += 5;
+            }
+                printf("%s",morse[j]);
+    } 
+}
